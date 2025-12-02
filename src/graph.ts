@@ -85,7 +85,7 @@ export function chenERRender(erTag?: string): void {
         nodes.push({
           id: entityId,
           name: entityId,
-          symbol: "roundRect",
+          symbol: "rect",
           symbolSize: [Math.max(140, entityId.length * 14 + 40), 48],
           category: "entity",
           label: { show: true },
@@ -119,16 +119,14 @@ export function chenERRender(erTag?: string): void {
           category: "relation",
           label: { show: true },
         });
-        // 关系连实体，边上标注基数
+        // 关系连实体（Chen 经典：边无箭头、无标签）
         edges.push({
           source: relId,
           target: item.left,
-          value: item.cardinality.split(":")[0] || "",
         });
         edges.push({
           source: relId,
           target: item.right,
-          value: item.cardinality.split(":")[1] || "",
         });
       }
     }
@@ -150,8 +148,8 @@ export function chenERRender(erTag?: string): void {
             { name: "attribute" },
           ],
           label: { show: true, position: "inside" },
-          edgeLabel: { show: true, formatter: "{c}" },
-          edgeSymbol: ["none", "arrow"],
+          edgeLabel: { show: false },
+          edgeSymbol: ["none", "none"],
           edgeSymbolSize: 10,
           lineStyle: { color: "#888", curveness: 0.2 },
           force: { repulsion: 600, edgeLength: 140, friction: 0.2 },
