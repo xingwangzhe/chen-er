@@ -13,9 +13,9 @@ hws = [ \t]*
 newline
   = "\r\n" / "\n" / "\r"
 
-// 标识符（目前仅支持 ASCII，后续可扩展 Unicode）
+// 标识符（支持 Unicode 字母和数字）
 Identifier
-  = $([A-Za-z_][A-Za-z0-9_]*)
+  = id:$[^ \t\n\r{}():\"#\-]+ &{ return /^[\p{L}_][\p{L}\p{N}_]*$/u.test(id); } { return id; }
 
 // 行注释（不吞掉换行）
 comment

@@ -1,12 +1,12 @@
 // 引用公共规则
 import { Identifier, hws, newline, _ , __, comment } from "./common.peggy"
 
-start // 解析入口 
-    = _ rels:rel+ _ { return rels; }
+// start // 解析入口 
+//     = _ rels:rel+ _ { return rels; }
 
-
-rel // 关系定义：rel 实体1 -- 实体2 (基数) "关系名"
-    = _ "rel" __ left:Identifier __ "--" __ right:Identifier _ "(" card:Cardinality ")" _ name:QuotedString _ comment? newline? {
+// 关系定义：rel <实体1> -- <实体2> : (基数) "<关系名>"
+rel
+    = _ "rel" __ left:Identifier __ "--" __ right:Identifier _ ":" _ "(" card:Cardinality ")" _ name:QuotedString _ comment? newline? {
         return { type: "relation", left, right, cardinality: card, name };
     }
 

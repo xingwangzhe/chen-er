@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="chenER">
+        # ────────── 实体定义 ──────────
+        entity Customer {
+        customer_id PK # 主键下划线用PK标记
+        name
+        email
+        phone
+        名称
+        邮件
+        电话
+        }
+
+        entity Order {
+        order_id PK
+        order_date
+        total_amount
+        }
+
+        entity Address {
+        address_id PK
+        street
+        city
+        }
+
+        # ────────── 关系定义（新语法） ──────────
+        rel Customer -- Order : (1:n) "places" # 客户下订单（一对多）
+        rel Customer -- Address : (m:n) "uses" # 客户使用地址（多对多）
+        rel Order -- Address : (1:1) "shipped to" # 订单发货到地址
+    </div>
+    <script src="./graph.ts"></script>
+</body>
+
+</html>
