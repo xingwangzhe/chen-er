@@ -1,0 +1,6 @@
+entity Customer {
+  customer_id  PK    # 主键下划线用PK标记
+  name
+  email
+  phone
+}

@@ -1,0 +1,4 @@
+rel Customer -- Order  (1:n) "places" # 客户下订单
+rel Customer -- Address  (m:n) "uses" # 客户使用地址
+rel Order -- Address  (1:1) "shipped to" # 订单发货地址
+

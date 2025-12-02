@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "pg": "set -e; for f in grammar/peggy/*.peggy; do if [ ! -s \"$f\" ]; then echo Skipping empty grammar: $f; continue; fi; base=\"$(basename \"$f\")\"; out=grammar/out/$(basename \"${f%.peggy}\")-parser.js; if [ \"$base\" = \"entities.peggy\" ]; then echo Generating $out from common+entities; bun x peggy -o \"$out\" grammar/peggy/common.peggy \"$f\"; else echo Generating $out from $f; bun x peggy -o \"$out\" \"$f\"; fi; done",
+    "build": "tsc && bun run gen:peggy && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {

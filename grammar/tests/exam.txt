@@ -4,6 +4,9 @@ entity Customer {
   name
   email
   phone
+  名称
+  邮件
+  电话
 }
 
 entity Order {
