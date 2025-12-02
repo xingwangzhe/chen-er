@@ -1,6 +1,7 @@
-// @ts-ignore - 编译时生成的解析器
-import parser from "../grammar/out/all-parser.js";
-import type { ERJson } from "./types.js";
+// @ts-ignore 使用 peggy 生成的解析器（ESM，命名导出 parse）
+// 生成脚本见 package.json -> scripts.pg
+import { parse as peggyParse } from "../grammar/peggy/all-parser.js";
+import type { ERJson } from "./type";
 
 /**
  * 解析 ER 图文本为 AST
@@ -9,13 +10,10 @@ import type { ERJson } from "./types.js";
  */
 export function parseERSchema(input: string): ERJson[] {
   try {
-    return parser.parse(input) as ERJson[];
-  } catch (error: any) {
-    console.error("解析失败:", error.message);
-    if (error.location) {
-      console.error("位置:", error.location);
-    }
-    throw error;
+    return peggyParse(input) as ERJson[];
+  } catch (e: any) {
+    console.error("解析失败:", e?.message, "\n位置:", e?.location);
+    throw e;
   }
 }
 
@@ -25,8 +23,7 @@ export function parseERSchema(input: string): ERJson[] {
  * @returns JSON 字符串
  */
 export function parseERSchemaToJSON(input: string): string {
-  const ast = parseERSchema(input);
-  return JSON.stringify(ast, null, 2);
+  return JSON.stringify(parseERSchema(input), null, 2);
 }
 
 // 示例用法

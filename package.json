@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "pg": "bun x peggy --allowed-start-rules start -o grammar/out/all-parser.js grammar/peggy/common.peggy grammar/peggy/entities.peggy grammar/peggy/sample.peggy grammar/peggy/all.peggy",
+    "pg": "peggy --format es --allowed-start-rules start -o grammar/peggy/all-parser.js grammar/peggy/common.peggy grammar/peggy/entities.peggy grammar/peggy/sample.peggy grammar/peggy/all.peggy",
     "build": "bun run pg && tsc && vite build",
     "preview": "vite preview"
   },

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chen ER Demo (ECharts)</title>
+    <style>
+        .chenER {
+            width: 100%;
+            height: 80vh;
+            /* ECharts 需要明确尺寸 */
+            white-space: pre;
+            /* 保留文本换行，供解析读取 */
+            font-family: monospace;
+            overflow: auto;
+            border: 1px solid #eee;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chenER">
+        # ────────── 实体定义 ──────────
+        entity Customer {
+        customer_id PK
+        name
+        email
+        phone
+        名称
+        邮件
+        电话
+        }
+
+        entity Order {
+        order_id PK
+        order_date
+        total_amount
+        }
+
+        entity Address {
+        address_id PK
+        street
+        city
+        }
+
+        # ────────── 关系定义（新语法） ──────────
+        rel Customer -- Order : (1:n) "places" # 客户下订单（一对多）
+        rel Customer -- Address : (m:n) "uses" # 客户使用地址（多对多）
+        rel Order -- Address : (1:1) "shipped to" # 订单发货到地址
+    </div>
+
+    <script type="module">
+        import { chenERRender } from "/src/graph.ts";
+        chenERRender("chenER"); // 读取上方文本并渲染
+    </script>
+</body>
+
+</html>

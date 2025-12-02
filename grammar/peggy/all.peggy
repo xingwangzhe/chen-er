@@ -8,6 +8,6 @@ import { entity } from "./entities.peggy"
 import { rel } from "./sample.peggy"
 
 start // 解析入口：支持实体和关系混合定义
-  = _ elements:(entity / rel)* _ {
+  = _ elements:(entity / rel)+  _ {
       return elements;
   }
