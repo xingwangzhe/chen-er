@@ -29,4 +29,5 @@ coverage/
 *.sw?
 
 # Generated parser (Peggy ESM)
-grammar/peggy/all-parser.js
+grammar/peggy/*.js
+
