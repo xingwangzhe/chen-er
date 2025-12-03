@@ -113,6 +113,7 @@ export function renderChenER(erTag?: string): void {
         }
       } else if (item.type === "relation") {
         const relId = `rel:${item.name}-${item.left}-${item.right}`;
+        const cards = (item as any).cardinality?.split(":") || ["", ""];
         // 关系
         nodes.push({
           id: relId,
@@ -121,15 +122,21 @@ export function renderChenER(erTag?: string): void {
           symbolSize: [110, 60],
           category: "relation",
           label: { show: true },
+          // 便于悬停时显示详细信息
+          left: item.left,
+          right: item.right,
+          cardinality: (item as any).cardinality || "",
         });
         // 关系连实体（Chen 经典：边无箭头、无标签）
         edges.push({
           source: relId,
           target: item.left,
+          name: cards[0],
         });
         edges.push({
           source: relId,
           target: item.right,
+          name: cards[1],
         });
       }
     }
@@ -151,7 +158,26 @@ export function renderChenER(erTag?: string): void {
             { name: "attribute" },
           ],
           label: { show: true, position: "inside" },
-          edgeLabel: { show: false },
+          edgeLabel: {
+            show: true,
+            formatter: (params: any) => params?.data?.name ?? "",
+          },
+          tooltip: {
+            show: true,
+            formatter: (params: any) => {
+              if (
+                params.dataType === "node" &&
+                params?.data?.category === "relation"
+              ) {
+                const d = params.data as any;
+                const lr = d.left && d.right ? `${d.left}:${d.right}` : "";
+                const card = d.cardinality || "";
+                const parts = [d.name, lr, card].filter(Boolean);
+                return parts.join("<br/>");
+              }
+              return params.name || "";
+            },
+          },
           edgeSymbol: ["none", "none"],
           edgeSymbolSize: 10,
           lineStyle: { color: "#888", curveness: 0.2 },
