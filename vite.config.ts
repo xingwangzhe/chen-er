@@ -19,8 +19,14 @@ export default defineConfig({
         "echarts/renderers",
       ],
       output: {
+        exports: "named",
         globals: {
           echarts: "echarts",
+          "echarts/core": "echarts",
+          "echarts/charts": "echarts",
+          "echarts/components": "echarts",
+          "echarts/features": "echarts",
+          "echarts/renderers": "echarts",
         },
       },
     },

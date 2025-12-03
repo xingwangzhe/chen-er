@@ -50,6 +50,7 @@ renderChenER('chenER')
   ChenER.renderChenER('chenER')
 </script>
 ```
+注意：UMD 构建仅提供命名导出（无默认导出）。请使用 `ChenER.renderChenER`，而不是默认导出。
 
 ### 语法规则摘要
 - 注释：`# ...`（单行注释）

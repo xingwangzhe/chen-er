@@ -50,6 +50,7 @@ renderChenER('chenER')
   ChenER.renderChenER('chenER')
 </script>
 ```
+Note: the UMD bundle exposes named exports only (no default export). Use `ChenER.renderChenER` rather than a default export.
 
 ### Grammar Summary
 - Comments: `# ...` (single-line)
