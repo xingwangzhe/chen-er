@@ -27,7 +27,7 @@ npm i chen-er
 ```bash
 bun run pg      # 生成解析器 grammar/peggy/all-parser.js（ESM）
 bun run dev     # 本地演示
-bun run build   # 产出库 dist/chen-er.es.js, chen-er.umd.js
+bun run build   # 构建输出位于 dist：index.js / index.umd.js；类型声明位于 dist/types/index.d.ts
 ```
 
 ## 使用
@@ -35,19 +35,19 @@ bun run build   # 产出库 dist/chen-er.es.js, chen-er.umd.js
 ### ES 模块
 ```ts
 // 命名导出
-import { renderChenER, chenERRender } from 'chen-er/dist/chen-er.es.js'
+import { renderChenER, chenERRender } from 'chen-er'
 renderChenER('chenER')
 chenERRender('chenER')
 
 // 默认导出（对象，内含 renderChenER）
-import ChenER from 'chen-er/dist/chen-er.es.js'
+import ChenER from 'chen-er'
 ChenER.renderChenER('chenER')
 ```
 
 ### UMD（script 标签）
 ```html
 <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="./dist/chen-er.umd.js"></script>
+<script src="./dist/index.umd.js"></script>
 <script>
   // 渲染 class 为 chenER 的容器
   ChenER.renderChenER('chenER')

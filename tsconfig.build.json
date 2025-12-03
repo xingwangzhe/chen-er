@@ -10,6 +10,6 @@
     "rootDir": "src",
     "types": []
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/index.ts", "src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

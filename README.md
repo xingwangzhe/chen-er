@@ -27,7 +27,7 @@ Developing in this repo:
 ```bash
 bun run pg      # generate parser grammar/peggy/all-parser.js (ESM)
 bun run dev     # local demo
-bun run build   # output dist/chen-er.es.js, dist/chen-er.umd.js
+bun run build   # outputs index.js / index.umd.js under dist; types at dist/types/index.d.ts
 ```
 
 ## Usage
@@ -35,25 +35,25 @@ bun run build   # output dist/chen-er.es.js, dist/chen-er.umd.js
 ### ES module
 ```ts
 // Named export
-import { renderChenER, chenERRender } from 'chen-er/dist/chen-er.es.js'
+import { renderChenER, chenERRender } from 'chen-er'
 renderChenER('chenER')
 chenERRender('chenER')
 
 // Default export (object with renderChenER)
-import ChenER from 'chen-er/dist/chen-er.es.js'
+import ChenER from 'chen-er'
 ChenER.renderChenER('chenER')
 ```
 
 ### UMD (script tag)
 ```html
 <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="./dist/chen-er.umd.js"></script>
+<script src="./dist/index.umd.js"></script>
 <script>
   // Render the container with class chenER
   ChenER.renderChenER('chenER')
 </script>
 ```
-Note: the UMD bundle exposes a global object with `renderChenER` only. Use `ChenER.renderChenER`.
+Note: the UMD bundle exposes a global object with `renderChenER`. Use `ChenER.renderChenER`.
 
 ### Grammar Summary
 - Comments: `# ...` (single-line)

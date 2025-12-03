@@ -3,9 +3,9 @@ import { defineConfig } from "vite";
 export default defineConfig({
   build: {
     lib: {
-      entry: "src/graph.ts",
+      entry: "src/index.ts",
       name: "ChenER",
-      fileName: (format) => `chen-er.${format}.js`,
+      fileName: (format) => (format === "umd" ? `index.umd.js` : `index.js`),
       formats: ["es", "umd"],
     },
     rollupOptions: {
