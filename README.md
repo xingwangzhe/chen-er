@@ -66,6 +66,9 @@ ChenER.chenERRbyId('my-er-container')
 ```
 Note: the UMD global is `ChenER` with `chenERRbyClass` and `chenERRbyId`.
 
+### Online Playground
+- Try in CodeSandbox: https://codesandbox.io/p/sandbox/m248ws
+
 ### Grammar Summary
 - Comments: `# ...` (single-line)
 - Whitespace: spaces/tabs/newlines act as separators

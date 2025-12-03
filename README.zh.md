@@ -66,6 +66,9 @@ ChenER.chenERRbyId('my-er-container')
 ```
 说明：UMD 全局对象名为 `ChenER`，包含 `chenERRbyClass` 与 `chenERRbyId` 方法。
 
+### 在线试用
+- 在 CodeSandbox 直接试用：https://codesandbox.io/p/sandbox/m248ws
+
 ### 语法规则摘要
 - 注释：`# ...`（单行注释）
 - 空白：空格/制表符/换行均可分隔元素
