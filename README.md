@@ -34,11 +34,14 @@ bun run build   # output dist/chen-er.es.js, dist/chen-er.umd.js
 
 ### ES module
 ```ts
-import { renderChenER } from 'chen-er/dist/chen-er.es.js'
-
-// Put an HTML container whose innerText is ER DSL
-// <div class="chenER">\n entity ... \n rel ... \n</div>
+// Named export
+import { renderChenER, chenERRender } from 'chen-er/dist/chen-er.es.js'
 renderChenER('chenER')
+chenERRender('chenER')
+
+// Default export (object with renderChenER)
+import ChenER from 'chen-er/dist/chen-er.es.js'
+ChenER.renderChenER('chenER')
 ```
 
 ### UMD (script tag)
@@ -50,7 +53,7 @@ renderChenER('chenER')
   ChenER.renderChenER('chenER')
 </script>
 ```
-Note: the UMD bundle exposes named exports only (no default export). Use `ChenER.renderChenER` rather than a default export.
+Note: the UMD bundle exposes a global object with `renderChenER` only. Use `ChenER.renderChenER`.
 
 ### Grammar Summary
 - Comments: `# ...` (single-line)

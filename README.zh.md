@@ -34,11 +34,14 @@ bun run build   # 产出库 dist/chen-er.es.js, chen-er.umd.js
 
 ### ES 模块
 ```ts
-import { renderChenER } from 'chen-er/dist/chen-er.es.js'
-
-// 页面中放一个容器，容器文本即 ER DSL
-// <div class="chenER">\n entity ... \n rel ... \n</div>
+// 命名导出
+import { renderChenER, chenERRender } from 'chen-er/dist/chen-er.es.js'
 renderChenER('chenER')
+chenERRender('chenER')
+
+// 默认导出（对象，内含 renderChenER）
+import ChenER from 'chen-er/dist/chen-er.es.js'
+ChenER.renderChenER('chenER')
 ```
 
 ### UMD（script 标签）
@@ -50,7 +53,7 @@ renderChenER('chenER')
   ChenER.renderChenER('chenER')
 </script>
 ```
-注意：UMD 构建仅提供命名导出（无默认导出）。请使用 `ChenER.renderChenER`，而不是默认导出。
+注意：UMD 通过全局对象暴露 `renderChenER`，请使用 `ChenER.renderChenER`。
 
 ### 语法规则摘要
 - 注释：`# ...`（单行注释）

@@ -208,9 +208,12 @@ export function renderChenER(erTag?: string): void {
 /**
  * 便捷别名，兼容旧函数名。
  */
-export const chenERRender = renderChenER;
+export const chenERRender: (erTag?: string) => void = renderChenER;
 
 /**
  * 默认导出对象，便于按需引用。
  */
-export default { renderChenER };
+const defaultExport: { renderChenER: (erTag?: string) => void } = {
+  renderChenER,
+};
+export default defaultExport;
