@@ -50,7 +50,7 @@ ChenER.chenERRbyId('my-er-container')
 ### CDN（ES 模块，自包含）
 ```html
 <script type="module">
-  import { chenERRbyClass, chenERRbyId } from 'https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.ems.js'
+  import { chenERRbyClass, chenERRbyId } from 'https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.ems.js'
   chenERRbyClass('chenER')
   // chenERRbyId('my-er-container')
 </script>
@@ -58,7 +58,7 @@ ChenER.chenERRbyId('my-er-container')
 
 ### UMD（jsDelivr，自包含）
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.umd.js"></script>
 <script>
   ChenER.chenERRbyClass('chenER')
   // ChenER.chenERRbyId('my-er-container')

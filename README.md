@@ -50,19 +50,19 @@ ChenER.chenERRbyId('my-er-container')
 ### ES module via CDN (self-contained)
 ```html
 <script type="module">
-  import { chenERRbyClass, chenERRbyId } from 'https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.ems.js'
+  import { chenERRbyClass, chenERRbyId } from 'https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.ems.js'
   chenERRbyClass('chenER')
   // chenERRbyId('my-er-container')
-  </script>
+</script>
 ```
 
 ### UMD (script tag via jsDelivr, self-contained)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.umd.js"></script>
 <script>
   ChenER.chenERRbyClass('chenER')
   // ChenER.chenERRbyId('my-er-container')
-  </script>
+</script>
 ```
 Note: the UMD global is `ChenER` with `chenERRbyClass` and `chenERRbyId`.
 

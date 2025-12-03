@@ -27,20 +27,20 @@ export function parseERSchemaToJSON(input: string): string {
 }
 
 // 示例用法
-const exampleSchema = `
-entity Customer {
-  customer_id  PK
-  name
-  email
-}
+// const exampleSchema = `
+// entity Customer {
+//   customer_id  PK
+//   name
+//   email
+// }
 
-entity Order {
-  order_id  PK
-  order_date
-}
+// entity Order {
+//   order_id  PK
+//   order_date
+// }
 
-rel Customer -- Order : (1:n) "places"
-`;
+// rel Customer -- Order : (1:n) "places"
+// `;
 
-console.log("解析示例:");
-console.log(parseERSchemaToJSON(exampleSchema));
+// console.log("解析示例:");
+// console.log(parseERSchemaToJSON(exampleSchema));
