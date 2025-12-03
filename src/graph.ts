@@ -206,14 +206,142 @@ export function renderChenER(erTag?: string): void {
 }
 
 /**
- * 便捷别名，兼容旧函数名。
+ * 通过 class 名称渲染：渲染页面中匹配该 class 的所有容器。
  */
-export const chenERRender: (erTag?: string) => void = renderChenER;
+export const chenERRbyClass: (className?: string) => void = renderChenER;
+
+/**
+ * 通过元素 id 渲染：仅渲染指定 id 的容器。
+ */
+export function chenERRbyId(id: string): void {
+  const container = document.getElementById(id) as HTMLElement | null;
+  if (!container) {
+    throw new Error(`Container element with id '${id}' not found`);
+  }
+
+  const erText = container.textContent || "";
+  const ast = parseERSchema(erText);
+
+  let nodes: any[] = [];
+  let edges: any[] = [];
+
+  for (const item of ast) {
+    if (item.type === "entity") {
+      const entityId = item.name;
+      nodes.push({
+        id: entityId,
+        name: entityId,
+        symbol: "rect",
+        symbolSize: [Math.max(140, entityId.length * 14 + 40), 48],
+        category: "entity",
+        label: { show: true },
+        attrs: item.fields.map((f: any) => ({ name: f.name, pk: !!f.pk })),
+      });
+      for (const f of item.fields) {
+        const attrId = `${entityId}.${f.name}`;
+        nodes.push({
+          id: attrId,
+          name: f.name,
+          symbol: ELLIPSE_PATH,
+          symbolKeepAspect: false,
+          symbolSize: [Math.max(90, f.name.length * 16), 36],
+          category: "attribute",
+          label: { show: true },
+          itemStyle: {
+            borderColor: f.pk ? "#d62728" : "#5470c6",
+            borderWidth: f.pk ? 3 : 1,
+          },
+        });
+        edges.push({ source: attrId, target: entityId });
+      }
+    } else if (item.type === "relation") {
+      const relId = `rel:${item.name}-${item.left}-${item.right}`;
+      const cards = (item as any).cardinality?.split(":") || ["", ""];
+      nodes.push({
+        id: relId,
+        name: item.name,
+        symbol: "diamond",
+        symbolSize: [110, 60],
+        category: "relation",
+        label: { show: true },
+        left: item.left,
+        right: item.right,
+        cardinality: (item as any).cardinality || "",
+      });
+      edges.push({ source: relId, target: item.left, name: cards[0] });
+      edges.push({ source: relId, target: item.right, name: cards[1] });
+    }
+  }
+
+  container.innerHTML = "";
+  const chart = echarts.init(container);
+  const option: ECOption = {
+    tooltip: { show: true },
+    series: [
+      {
+        type: "graph",
+        layout: "force",
+        roam: true,
+        draggable: true,
+        data: nodes,
+        links: edges,
+        categories: [
+          { name: "entity" },
+          { name: "relation" },
+          { name: "attribute" },
+        ],
+        label: { show: true, position: "inside" },
+        edgeLabel: {
+          show: true,
+          formatter: (params: any) => params?.data?.name ?? "",
+        },
+        tooltip: {
+          show: true,
+          formatter: (params: any) => {
+            if (
+              params.dataType === "node" &&
+              params?.data?.category === "relation"
+            ) {
+              const d = params.data as any;
+              const lr = d.left && d.right ? `${d.left}:${d.right}` : "";
+              const card = d.cardinality || "";
+              const parts = [d.name, lr, card].filter(Boolean);
+              return parts.join("<br/>");
+            }
+            if (
+              params.dataType === "node" &&
+              params?.data?.category === "entity"
+            ) {
+              const d = params.data as any;
+              const attrs = Array.isArray(d.attrs)
+                ? d.attrs.map((a: any) => (a.pk ? `*${a.name}` : a.name))
+                : [];
+              const title = d.name + "<br/>" || "";
+              const attrsLine = attrs.join("<br/>");
+              return [title, attrsLine].filter(Boolean).join("<br/>");
+            }
+            return params.name || "";
+          },
+        },
+        edgeSymbol: ["none", "none"],
+        edgeSymbolSize: 10,
+        lineStyle: { color: "#888", curveness: 0.2 },
+        force: { repulsion: 600, edgeLength: 140, friction: 0.2 },
+      },
+    ],
+  };
+  chart.setOption(option);
+  addEventListener("resize", () => chart.resize());
+}
 
 /**
  * 默认导出对象，便于按需引用。
  */
-const defaultExport: { renderChenER: (erTag?: string) => void } = {
-  renderChenER,
+const defaultExport: {
+  chenERRbyClass: (className?: string) => void;
+  chenERRbyId: (id: string) => void;
+} = {
+  chenERRbyClass,
+  chenERRbyId,
 };
 export default defaultExport;

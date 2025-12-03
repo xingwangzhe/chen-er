@@ -35,25 +35,41 @@ bun run build   # 构建输出位于 dist：index.js / index.umd.js；类型声�
 ### ES 模块
 ```ts
 // 命名导出
-import { renderChenER, chenERRender } from 'chen-er'
-renderChenER('chenER')
-chenERRender('chenER')
+import { chenERRbyClass, chenERRbyId } from 'chen-er'
+// 渲染所有 class 为 'chenER' 的容器
+chenERRbyClass('chenER')
+// 通过 id 渲染单个容器
+chenERRbyId('my-er-container')
 
-// 默认导出（对象，内含 renderChenER）
+// 默认导出（对象，内含方法）
 import ChenER from 'chen-er'
-ChenER.renderChenER('chenER')
+ChenER.chenERRbyClass('chenER')
+ChenER.chenERRbyId('my-er-container')
 ```
 
-### UMD（script 标签）
+### 通过 CDN（jsDelivr）以 ES 模块方式导入
 ```html
-<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="./dist/index.umd.js"></script>
-<script>
-  // 渲染 class 为 chenER 的容器
-  ChenER.renderChenER('chenER')
+<script type="module">
+  import ChenER from 'https://cdn.jsdelivr.net/npm/chen-er@latest/+esm'
+  // 渲染所有 class 为 'chenER' 的容器
+  ChenER.chenERRbyClass('chenER')
+  // 或：通过 id 渲染单个容器
+  ChenER.chenERRbyId('my-er-container')
 </script>
 ```
-注意：UMD 通过全局对象暴露 `renderChenER`，请使用 `ChenER.renderChenER`。
+
+### UMD（通过 jsDelivr 引入）
+```html
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.umd.js"></script>
+<script>
+  // 渲染所有 class 为 chenER 的容器
+  ChenER.chenERRbyClass('chenER')
+  // 或：通过 id 渲染单个容器
+  ChenER.chenERRbyId('my-er-container')
+</script>
+```
+说明：UMD 全局对象名为 `ChenER`，包含 `chenERRbyClass` 与 `chenERRbyId` 方法。
 
 ### 语法规则摘要
 - 注释：`# ...`（单行注释）
@@ -84,16 +100,17 @@ rel Customer -- Order : (1:n) "places"
 
 
 ## API
-- `renderChenER(erTag?: string): void`
+- `chenERRbyClass(erTag?: string): void`
   - `erTag`：容器的 class 名称；默认 `"chenER"`
-  - 读取容器中的文本，解析并渲染 ECharts 图
-- 兼容别名：`chenERRender`（与旧代码保持一致）
-- 默认导出：`{ renderChenER }`
+  - 读取每个匹配容器中的文本，解析并渲染 ECharts 图
+- `chenERRbyId(id: string): void`
+  - 通过容器 `id` 渲染单个图
+- 默认导出：`{ chenERRbyClass, chenERRbyId }`
 
 ## 构建与发布
- - Vite 库模式构建，文件名固定：`dist/chen-er.es.js`、`dist/chen-er.umd.js`
- - `package.json` 的 `files: ["dist"]` 仅发布构建产物。
- - `.npmignore` 已忽略源码与演示文件。
+ - 使用 Vite 库模式构建；输出：`dist/index.js`（ES）与 `dist/index.umd.js`（UMD）
+ - 类型声明入口：`dist/types/index.d.ts`
+ - `package.json` 的 `files: ["dist", "LICENSE"]` 仅发布构建产物与许可证。
 
 ## 使用限制与注意
  - 解析器由 Peggy 生成（ESM），需在构建时执行 `bun run pg`。

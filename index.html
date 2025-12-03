@@ -22,6 +22,7 @@
 
 <body>
     <div class="chenER">
+
         # ────────── 实体定义 ──────────
         entity Customer {
         customer_id PK
@@ -52,8 +53,11 @@
     </div>
 
     <script type="module">
-        import { chenERRender } from "/src/graph.ts";
-        chenERRender("chenER"); // 读取上方文本并渲染
+        import { chenERRbyClass, chenERRbyId } from './src/index.ts'
+        // 渲染所有 class 为 'chenER' 的容器
+        chenERRbyClass('chenER')
+        // 通过 id 渲染单个容器
+        chenERRbyId('my-er-container')
     </script>
 </body>
 
