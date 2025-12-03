@@ -7,10 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
 *.local
+bun.lock
+.vite/
+coverage/
+*.tsbuildinfo
+.env*
 
 # Editor directories and files
 .vscode/*
@@ -23,5 +28,5 @@ dist-ssr
 *.sln
 *.sw?
 
-# Generated grammar parsers
-grammar/out/
+# Generated parser (Peggy ESM)
+grammar/peggy/all-parser.js

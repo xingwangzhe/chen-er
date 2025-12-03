@@ -38,7 +38,6 @@ type ECOption = ComposeOption<
 >;
 
 import { parseERSchema } from "./main";
-import type { ERJson } from "./type";
 // 注册必须的组件
 echarts.use([
   TitleComponent,
@@ -59,7 +58,11 @@ echarts.use([
  * @param erTag 容器的 class 名称，默认为 "chenER"
  */
 const ELLIPSE_PATH = "path://M50 0 A50 50 0 1 1 49.999 0 Z";
-export function chenERRender(erTag?: string): void {
+/**
+ * 将页面中包含 ER 文本的容器渲染为图形。
+ * - erTag: 容器的 class 名称（默认 "chenER"）
+ */
+export function renderChenER(erTag?: string): void {
   const containers = document.getElementsByClassName(
     erTag || "chenER"
   ) as HTMLCollectionOf<HTMLElement>;
@@ -160,3 +163,13 @@ export function chenERRender(erTag?: string): void {
     addEventListener("resize", () => chart.resize());
   }
 }
+
+/**
+ * 便捷别名，兼容旧函数名。
+ */
+export const chenERRender = renderChenER;
+
+/**
+ * 默认导出对象，便于按需引用。
+ */
+export default { renderChenER };
