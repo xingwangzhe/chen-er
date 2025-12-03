@@ -12,6 +12,9 @@ A small front-end library that parses a concise ER DSL and renders classic Chen 
 - Classic Chen style: entity = rectangle, relation = diamond, attribute = ellipse
 - Auto layout: ECharts `graph` force layout (roam/drag enabled)
 - Lightweight: only `echarts` and `peggy`; built as a library via Vite (ES/UMD)
+ - Rich hover tooltips:
+   - Hover relation: shows relation name, participating entities (A:B), and cardinality (e.g., 1:N)
+   - Hover entity: shows class name and its attributes (primary keys marked with `*`)
 
 ## Install
 ```bash
