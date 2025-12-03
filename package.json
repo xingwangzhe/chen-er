@@ -18,6 +18,14 @@
   "overrides": {
     "vite": "npm:rolldown-vite@7.2.5"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xingwangzhe/chen-er.git"
+  },
+  "homepage": "https://github.com/xingwangzhe/chen-er#readme",
+  "bugs": {
+    "url": "https://github.com/xingwangzhe/chen-er/issues"
+  },
   "dependencies": {
     "echarts": "^6.0.0",
     "peggy": "^5.0.6"
