@@ -47,26 +47,21 @@ ChenER.chenERRbyClass('chenER')
 ChenER.chenERRbyId('my-er-container')
 ```
 
-### 通过 CDN（jsDelivr）以 ES 模块方式导入
+### CDN（ES 模块，自包含）
 ```html
 <script type="module">
-  import ChenER from 'https://cdn.jsdelivr.net/npm/chen-er@latest/+esm'
-  // 渲染所有 class 为 'chenER' 的容器
-  ChenER.chenERRbyClass('chenER')
-  // 或：通过 id 渲染单个容器
-  ChenER.chenERRbyId('my-er-container')
+  import { chenERRbyClass, chenERRbyId } from 'https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.ems.js'
+  chenERRbyClass('chenER')
+  // chenERRbyId('my-er-container')
 </script>
 ```
 
-### UMD（通过 jsDelivr 引入）
+### UMD（jsDelivr，自包含）
 ```html
-<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.umd.js"></script>
 <script>
-  // 渲染所有 class 为 chenER 的容器
   ChenER.chenERRbyClass('chenER')
-  // 或：通过 id 渲染单个容器
-  ChenER.chenERRbyId('my-er-container')
+  // ChenER.chenERRbyId('my-er-container')
 </script>
 ```
 说明：UMD 全局对象名为 `ChenER`，包含 `chenERRbyClass` 与 `chenERRbyId` 方法。
@@ -108,7 +103,10 @@ rel Customer -- Order : (1:n) "places"
 - 默认导出：`{ chenERRbyClass, chenERRbyId }`
 
 ## 构建与发布
- - 使用 Vite 库模式构建；输出：`dist/index.js`（ES）与 `dist/index.umd.js`（UMD）
+ - 使用 Vite 库模式构建；输出：
+   - `dist/index.js`（ES，外部化依赖，供打包器使用）
+   - `dist/index.ems.js`（ESM，自包含，适合 CDN 引入）
+   - `dist/index.umd.js`（UMD，自包含，适合 CDN 引入）
  - 类型声明入口：`dist/types/index.d.ts`
  - `package.json` 的 `files: ["dist", "LICENSE"]` 仅发布构建产物与许可证。
 

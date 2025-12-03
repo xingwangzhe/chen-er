@@ -47,27 +47,22 @@ ChenER.chenERRbyClass('chenER')
 ChenER.chenERRbyId('my-er-container')
 ```
 
-### ES module via CDN (jsDelivr)
+### ES module via CDN (self-contained)
 ```html
 <script type="module">
-  import ChenER from 'https://cdn.jsdelivr.net/npm/chen-er@latest/+esm'
-  // Render all containers with class 'chenER'
-  ChenER.chenERRbyClass('chenER')
-  // Or: render single container by id
-  ChenER.chenERRbyId('my-er-container')
-</script>
+  import { chenERRbyClass, chenERRbyId } from 'https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.ems.js'
+  chenERRbyClass('chenER')
+  // chenERRbyId('my-er-container')
+  </script>
 ```
 
-### UMD (script tag via jsDelivr)
+### UMD (script tag via jsDelivr, self-contained)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chen-er@latest/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chen-er@1.2.4/dist/index.umd.js"></script>
 <script>
-  // Render all containers with class 'chenER'
   ChenER.chenERRbyClass('chenER')
-  // Or: render single container by id
-  ChenER.chenERRbyId('my-er-container')
-</script>
+  // ChenER.chenERRbyId('my-er-container')
+  </script>
 ```
 Note: the UMD global is `ChenER` with `chenERRbyClass` and `chenERRbyId`.
 
@@ -108,7 +103,10 @@ rel Customer -- Order : (1:n) "places"
 - Default export: `{ chenERRbyClass, chenERRbyId }`
 
 ## Build & Publish
- - Vite library mode outputs: `dist/index.js` (ES) and `dist/index.umd.js` (UMD)
+ - Vite library mode outputs:
+   - `dist/index.js` (ES, externalized deps, for bundlers)
+   - `dist/index.ems.js` (ESM, self-contained for CDN)
+   - `dist/index.umd.js` (UMD, self-contained for CDN)
  - Types entry: `dist/types/index.d.ts`
  - `package.json` `files: ["dist", "LICENSE"]` publishes build artifacts and license.
 
