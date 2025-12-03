@@ -92,6 +92,8 @@ export function renderChenER(erTag?: string): void {
           symbolSize: [Math.max(140, entityId.length * 14 + 40), 48],
           category: "entity",
           label: { show: true },
+          // 用于 OOP 风格 tooltip 展示
+          attrs: item.fields.map((f: any) => ({ name: f.name, pk: !!f.pk })),
         });
         // 属性（由字段生成椭圆并连到实体）
         for (const f of item.fields) {
@@ -174,6 +176,19 @@ export function renderChenER(erTag?: string): void {
                 const card = d.cardinality || "";
                 const parts = [d.name, lr, card].filter(Boolean);
                 return parts.join("<br/>");
+              }
+              // 实体的 OOP 风格：ClassName<br/>attr1, attr2, *pkAttr
+              if (
+                params.dataType === "node" &&
+                params?.data?.category === "entity"
+              ) {
+                const d = params.data as any;
+                const attrs = Array.isArray(d.attrs)
+                  ? d.attrs.map((a: any) => (a.pk ? `*${a.name}` : a.name))
+                  : [];
+                const title = d.name + "<br/>" || "";
+                const attrsLine = attrs.join("<br/>");
+                return [title, attrsLine].filter(Boolean).join("<br/>");
               }
               return params.name || "";
             },
